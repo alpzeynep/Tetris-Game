@@ -41,33 +41,32 @@ public class Mino {
 	public void getDirection2() {}
 	public void getDirection3() {}
 	public void getDirection4() {}
-	public void checkMovementCollision() {}
-	public void checkRotationCollision() {
+	public void checkMovementCollision() {		
 		
 		leftCollision = false;
 		rightCollision = false;
 		bottomCollision = false;
+       
 		
-		//Check frame collision
-		//Left wall
 		for(int i = 0; i < b.length; i++) {
 			if(b[i].x == PlayManager.left_x) {
 				leftCollision = true;
 			}
-          }
-		//Right wall
-		for(int i = 0; i <b.length; i++) {
+		} 
+		
+		for(int i = 0; i < b.length; i++) {
 			if(b[i].x + Block.SIZE == PlayManager.right_x) {
 				rightCollision = true;
 			}
-		} 
-		//Bottom wall
-		for(int i = 0; i <b.length; i++) {
+		}
+		
+		for(int i = 0; i < b.length; i++) {
 			if(b[i].y + Block.SIZE == PlayManager.bottom_y) {
 				bottomCollision = true;
 			}
 		}
 	}
+	public void checkRotationCollision() {}
 	public void update() {
 		
 		//Move the Mino
@@ -80,6 +79,9 @@ public class Mino {
 			}
 			KeyHandler.upPressed = false;
 		}
+		
+		checkMovementCollision();
+		
 		if(KeyHandler.downPressed) {
 			
 			b[0].y += Block.SIZE;
@@ -118,7 +120,7 @@ public class Mino {
 			b[2].y += Block.SIZE;
 			b[3].y += Block.SIZE; 
 			autoDropCounter = 0;
-		}
+		} 
 	}
     public void draw(Graphics2D g2) {
     	

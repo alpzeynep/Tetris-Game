@@ -18,3 +18,4 @@ public class Block extends Rectangle{
     	g2.fillRect(x, y, SIZE, SIZE);
     }
 }
+ 

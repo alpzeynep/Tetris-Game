@@ -76,7 +76,7 @@ public class PlayManager {
 		//Draw Play Area Frame
 		g2.setColor(Color.white);
 		g2.setStroke(new BasicStroke(4f));
-		g2.drawRect(left_x, bottom_y-610, WIDTH+8, HEIGHT+8);
+		g2.drawRect(left_x, bottom_y -620, WIDTH+8, HEIGHT+8);
 		
 		//Draw Next Mino Frame 
 		int x = right_x + 100;

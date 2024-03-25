@@ -14,11 +14,11 @@ public class Main {
 		window.pack();
 		
 		
-		window.setLocation(150, 50);
+		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 		
 		gp.launchGame();
 		
 	}
-
+ 
 }
