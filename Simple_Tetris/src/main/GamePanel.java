@@ -11,7 +11,7 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;	
-	final int FPS = 60;
+	final int FPS = 60; 
 	Thread gameThread;
 	PlayManager pm;
 	
@@ -51,10 +51,12 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 		
-	}
+	} 
 	public void update() {
 		
-		pm.update();
+		if(KeyHandler.pausePressed == false) {
+			pm.update();	
+		}
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
 import java.util.Random;
 
 import mino.Block;
@@ -31,7 +32,10 @@ public class PlayManager {
 	Mino currentMino;
 	final int MINO_START_X;
 	final int MINO_START_Y;
-	
+	Mino nextMino;
+	final int NEXTMINO_X;
+	final int NEXTMINO_Y;
+	public static ArrayList<Block> staticBlocks = new ArrayList<> ();
 	//Others
 	public static int dropInvertal = 60; // mino drop in every 60 frames
 	
@@ -45,13 +49,17 @@ public class PlayManager {
 		MINO_START_X = left_x + (WIDTH/2) - Block.SIZE;
 		MINO_START_Y = top_y + Block.SIZE;
 		
+		NEXTMINO_X = right_x +475;
+		NEXTMINO_Y = top_y + 500;
 		//Set the starting Mino 
 		currentMino = pickMino();
 		currentMino.setXY(MINO_START_X, MINO_START_Y);
+		nextMino = pickMino();
+		nextMino.setXY(MINO_START_X, MINO_START_Y);
 	}
 	private Mino pickMino() {
 		// Pick a random mino
-		Mino mino = null;
+		Mino mino = null; 
 		int i = new Random().nextInt(7);
 		
 		switch(i)  {
@@ -76,7 +84,7 @@ public class PlayManager {
 		//Draw Play Area Frame
 		g2.setColor(Color.white);
 		g2.setStroke(new BasicStroke(4f));
-		g2.drawRect(left_x, bottom_y -620, WIDTH+8, HEIGHT+8);
+		g2.drawRect(left_x - 4, bottom_y -605, WIDTH+8, HEIGHT+8);
 		
 		//Draw Next Mino Frame 
 		int x = right_x + 100;
@@ -89,6 +97,17 @@ public class PlayManager {
 		//Draw current Mino
 		if(currentMino != null) {
 			currentMino.draw(g2);
+		//Draw the next mino 
+		nextMino.draw(g2);	
+			
+		// Draw Pause
+		g2.setColor(Color.yellow);
+		g2.setFont(g2.getFont().deriveFont(50f));
+		if(KeyHandler.pausePressed) {
+			x = left_x + 70;
+			y = top_y + 320;
+			g2.drawString("PAUSED", x, y);
+		}
 		}
 	}
 
