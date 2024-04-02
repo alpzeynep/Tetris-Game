@@ -169,14 +169,23 @@ public class Mino {
 	private void checkStaticBlockCollision() {
 		
 		for(int i = 0; i < PlayManager.staticBlocks.size(); i++) {
+			
 			int targetX = PlayManager.staticBlocks.get(i).x;
 			int targetY = PlayManager.staticBlocks.get(i).y;
 			
+			//Check Down
 			for(int ii = 0; ii< b.length; ii++) {
 				if(b[ii].y + Block.SIZE == targetY && b[ii].x == targetX) {
 					bottomCollision = true;
 				}
 			}
+			//LeftCollision
+			for(int ii = 0; ii < b.length; ii++) {
+				if(b[ii].x - Block.SIZE == targetX && b[ii].y == targetY) {
+					leftCollision = true;
+				}
+			}
+			//Right Colision 
 			for( int ii = 0; ii<b.length; i++) {
 				if(b[ii].x + Block.SIZE == targetX && b[ii].y == targetY) {
 					rightCollision = true;
