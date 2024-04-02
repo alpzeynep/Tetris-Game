@@ -52,6 +52,8 @@ public class Mino {
 		rightCollision = false;
 		bottomCollision = false;
        
+		//Check static block collision
+		checkStaticBlockCollision();
 		
 		for(int i = 0; i < b.length; i++) {
 			if(b[i].x == PlayManager.left_x) {
@@ -77,6 +79,8 @@ public class Mino {
 		rightCollision = false;
 		bottomCollision = false;
        
+		// Check static block collision
+		checkStaticBlockCollision();
 		
 		for(int i = 0; i < b.length; i++) {
 			if(tempB[i].x < PlayManager.left_x) {
@@ -160,6 +164,25 @@ public class Mino {
 				b[3].y += Block.SIZE; 
 				autoDropCounter = 0;
 			}
+		}
+	}
+	private void checkStaticBlockCollision() {
+		
+		for(int i = 0; i < PlayManager.staticBlocks.size(); i++) {
+			int targetX = PlayManager.staticBlocks.get(i).x;
+			int targetY = PlayManager.staticBlocks.get(i).y;
+			
+			for(int ii = 0; ii< b.length; ii++) {
+				if(b[ii].y + Block.SIZE == targetY && b[ii].x == targetX) {
+					bottomCollision = true;
+				}
+			}
+			for( int ii = 0; ii<b.length; i++) {
+				if(b[ii].x + Block.SIZE == targetX && b[ii].y == targetY) {
+					rightCollision = true;
+				}
+			}
+				
 		}
 	}
     public void draw(Graphics2D g2) {
