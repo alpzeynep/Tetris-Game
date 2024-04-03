@@ -92,10 +92,57 @@ public class PlayManager {
 			currentMino.setXY(MINO_START_X, MINO_START_Y);
 			nextMino = pickMino();
 			nextMino.setXY(NEXTMINO_X, NEXTMINO_Y); 
+			
+			// when a mino becomes inactive, check if line(s) can be deleted
+			checkDelete();
 		}
 		else {
 			currentMino.update();
 		}   
+	}
+	private void checkDelete() {
+		
+		int x = left_x;
+		int y = top_y;
+		int blockCount = 0;
+		
+		while(x < right_x && y < bottom_y) {
+			
+			for(int i = 0; i < staticBlocks.size(); i++) {
+				if(staticBlocks.get(i).x == x && staticBlocks.get(i).y == y) {
+					// increase the count if there is a static blocks
+					blockCount++;
+				}
+			}
+			
+			x += Block.SIZE;
+			
+			if(x == right_x) {
+				
+				//if the blockCount hits 12, that means the current y line is all filled with blocks
+				// so we can delete them
+				if(blockCount == 12) {
+					for(int i = staticBlocks.size()-1; i > -1; i--) {
+					// remove all the blocks in the current y line
+					if(staticBlocks.get(i).y == y) {
+						staticBlocks.remove(i);
+				    	}
+			    	}
+					
+					// a line has been deleted so need to slide down blocks that are above it
+					for(int i = 0; i < staticBlocks.size(); i++) {
+						// if a block is above the current y, move it down by the block size
+						if(staticBlocks.get(i).y < y) {
+							staticBlocks.get(i).y += Block.SIZE;
+						}
+					}
+				}
+				
+				blockCount = 0;
+				x = left_x;
+				y += Block.SIZE;
+			}
+		}
 	}
 	public void draw (Graphics2D g2) {
 		
